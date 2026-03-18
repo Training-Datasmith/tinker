@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laravel\Tinker\Tests;
 
 use Laravel\Tinker\ClassAliasAutoloader;
@@ -34,7 +36,7 @@ class ClassAliasAutoloaderTest extends TestCase
             ->once();
 
         $this->assertTrue(class_exists('Bar'));
-        $this->assertInstanceOf(\App\Foo\Bar::class, new \Bar);
+        $this->assertInstanceOf(\App\Foo\Bar::class, new \Bar());
     }
 
     public function testCanExcludeNamespacesFromAliasing()
@@ -76,6 +78,6 @@ class ClassAliasAutoloaderTest extends TestCase
             ->once();
 
         $this->assertTrue(class_exists('Three'));
-        $this->assertInstanceOf(\One\Two\Three::class, new \Three);
+        $this->assertInstanceOf(\One\Two\Three::class, new \Three());
     }
 }

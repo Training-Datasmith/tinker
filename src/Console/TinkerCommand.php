@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laravel\Tinker\Console;
 
 use Illuminate\Console\Command;
@@ -68,7 +70,10 @@ class TinkerCommand extends Command
         $path .= '/composer/autoload_classmap.php';
 
         $loader = ClassAliasAutoloader::register(
-            $shell, $path, $appConfig->get('tinker.alias', []), $appConfig->get('tinker.dont_alias', [])
+            $shell,
+            $path,
+            $appConfig->get('tinker.alias', []),
+            $appConfig->get('tinker.dont_alias', [])
         );
 
         if ($code = $this->option('execute')) {

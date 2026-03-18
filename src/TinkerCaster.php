@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laravel\Tinker;
 
 use Exception;
@@ -47,7 +49,7 @@ class TinkerCaster
                     $results[Caster::PREFIX_VIRTUAL.$property] = $val;
                 }
             } catch (Exception $e) {
-                //
+
             }
         }
 
@@ -113,7 +115,8 @@ class TinkerCaster
     public static function castModel($model): array
     {
         $attributes = array_merge(
-            $model->getAttributes(), $model->getRelations()
+            $model->getAttributes(),
+            $model->getRelations()
         );
 
         $visible = array_flip(

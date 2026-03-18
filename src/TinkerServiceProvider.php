@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laravel\Tinker;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -32,7 +34,7 @@ class TinkerServiceProvider extends ServiceProvider implements DeferrableProvide
     public function register(): void
     {
         $this->app->singleton('command.tinker', function (): \Laravel\Tinker\Console\TinkerCommand {
-            return new TinkerCommand;
+            return new TinkerCommand();
         });
 
         $this->commands(['command.tinker']);

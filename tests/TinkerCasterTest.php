@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laravel\Tinker\Tests;
 
 use Illuminate\Support\Collection;
@@ -10,7 +12,7 @@ class TinkerCasterTest extends TestCase
 {
     public function testCanCastCollection()
     {
-        $caster = new TinkerCaster;
+        $caster = new TinkerCaster();
 
         $result = $caster->castCollection(new Collection(['foo', 'bar']));
 
