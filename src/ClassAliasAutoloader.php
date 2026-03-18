@@ -45,15 +45,12 @@ class ClassAliasAutoloader
     /**
      * Register a new alias loader instance.
      *
-     * @param  \Psy\Shell  $shell
      * @param  string  $classMapPath
-     * @param  array  $includedAliases
-     * @param  array  $excludedAliases
      * @return static
      */
     public static function register(Shell $shell, $classMapPath, array $includedAliases = [], array $excludedAliases = [])
     {
-        return tap(new static($shell, $classMapPath, $includedAliases, $excludedAliases), function ($loader) {
+        return tap(new static($shell, $classMapPath, $includedAliases, $excludedAliases), function ($loader): void {
             spl_autoload_register([$loader, 'aliasClass']);
         });
     }
@@ -61,16 +58,12 @@ class ClassAliasAutoloader
     /**
      * Create a new alias loader instance.
      *
-     * @param  \Psy\Shell  $shell
      * @param  string  $classMapPath
-     * @param  array  $includedAliases
-     * @param  array  $excludedAliases
-     * @return void
      */
     public function __construct(Shell $shell, $classMapPath, array $includedAliases = [], array $excludedAliases = [])
     {
         $this->shell = $shell;
-        $this->vendorPath = dirname(dirname($classMapPath));
+        $this->vendorPath = dirname($classMapPath, 2);
         $this->includedAliases = collect($includedAliases);
         $this->excludedAliases = collect($excludedAliases);
 
@@ -93,9 +86,8 @@ class ClassAliasAutoloader
      * Find the closest class by name.
      *
      * @param  string  $class
-     * @return void
      */
-    public function aliasClass($class)
+    public function aliasClass($class): void
     {
         if (Str::contains($class, '\\')) {
             return;
@@ -112,18 +104,14 @@ class ClassAliasAutoloader
 
     /**
      * Unregister the alias loader instance.
-     *
-     * @return void
      */
-    public function unregister()
+    public function unregister(): void
     {
         spl_autoload_unregister([$this, 'aliasClass']);
     }
 
     /**
      * Handle the destruction of the instance.
-     *
-     * @return void
      */
     public function __destruct()
     {
@@ -136,7 +124,7 @@ class ClassAliasAutoloader
      * @param  string  $class
      * @param  string  $path
      */
-    public function isAliasable($class, $path)
+    public function isAliasable($class, $path): bool
     {
         if (! Str::contains($class, '\\')) {
             return false;

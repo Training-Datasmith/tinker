@@ -12,10 +12,8 @@ class TinkerServiceProvider extends ServiceProvider implements DeferrableProvide
 {
     /**
      * Boot the service provider.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $source = realpath($raw = __DIR__.'/../config/tinker.php') ?: $raw;
 
@@ -30,12 +28,10 @@ class TinkerServiceProvider extends ServiceProvider implements DeferrableProvide
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->app->singleton('command.tinker', function () {
+        $this->app->singleton('command.tinker', function (): \Laravel\Tinker\Console\TinkerCommand {
             return new TinkerCommand;
         });
 

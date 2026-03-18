@@ -34,9 +34,8 @@ class TinkerCaster
      * Get an array representing the properties of an application.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     * @return array
      */
-    public static function castApplication($app)
+    public static function castApplication($app): array
     {
         $results = [];
 
@@ -59,9 +58,8 @@ class TinkerCaster
      * Get an array representing the properties of a collection.
      *
      * @param  \Illuminate\Support\Collection  $collection
-     * @return array
      */
-    public static function castCollection($collection)
+    public static function castCollection($collection): array
     {
         return [
             Caster::PREFIX_VIRTUAL.'all' => $collection->all(),
@@ -72,9 +70,8 @@ class TinkerCaster
      * Get an array representing the properties of an html string.
      *
      * @param  \Illuminate\Support\HtmlString  $htmlString
-     * @return array
      */
-    public static function castHtmlString($htmlString)
+    public static function castHtmlString($htmlString): array
     {
         return [
             Caster::PREFIX_VIRTUAL.'html' => $htmlString->toHtml(),
@@ -85,9 +82,8 @@ class TinkerCaster
      * Get an array representing the properties of a fluent string.
      *
      * @param  \Illuminate\Support\Stringable  $stringable
-     * @return array
      */
-    public static function castStringable($stringable)
+    public static function castStringable($stringable): array
     {
         return [
             Caster::PREFIX_VIRTUAL.'value' => (string) $stringable,
@@ -98,9 +94,8 @@ class TinkerCaster
      * Get an array representing the properties of a process result.
      *
      * @param  \Illuminate\Process\ProcessResult  $result
-     * @return array
      */
-    public static function castProcessResult($result)
+    public static function castProcessResult($result): array
     {
         return [
             Caster::PREFIX_VIRTUAL.'output' => $result->output(),
@@ -114,9 +109,8 @@ class TinkerCaster
      * Get an array representing the properties of a model.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return array
      */
-    public static function castModel($model)
+    public static function castModel($model): array
     {
         $attributes = array_merge(
             $model->getAttributes(), $model->getRelations()
@@ -128,7 +122,7 @@ class TinkerCaster
 
         $hidden = array_flip($model->getHidden());
 
-        $appends = (function () {
+        $appends = (function (): array {
             return array_combine($this->appends, $this->appends); // @phpstan-ignore-line
         })->bindTo($model, $model)();
 
